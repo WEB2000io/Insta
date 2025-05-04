@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InstaWithMe - Viral Reel Assistant</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #e91e63;
+    }
+    .section {
+      margin: 30px 0;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    button.copy {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background-color: #e91e63;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+    .generator {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .generator input, .generator select {
+      padding: 10px;
+      margin: 5px;
+      width: 80%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .generator button {
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .generator button:hover {
+      background-color: #388e3c;
+    }
+  </style>
+</head>
+<body>
+  <h1>InstaWithMe - Viral Reel Generator</h1>
+
+  <div class="generator">
+    <input type="text" id="videoInput" placeholder="Describe your video here...">
+    <select id="videoType">
+      <option value="funny">Funny</option>
+      <option value="love">Love</option>
+      <option value="sad">Sad</option>
+      <option value="motivational">Motivational</option>
+      <option value="dance">Dance</option>
+      <option value="emotional">Emotional</option>
+      <option value="travel">Travel</option>
+      <option value="food">Food</option>
+    </select>
+    <br>
+    <button onclick="generateContent()">Generate</button>
+  </div>
+
+  <div id="generatedResult" class="section"></div>
+
+  <script>
+    const data = {
+      funny: {
+        caption: "Still laughing at this! Must watch till the end!",
+        hashtags: "#funnyreels #comedyclip #reellol",
+        song: "Benny Hill Theme Remix"
+      },
+      love: {
+        caption: "Just a love story in 15 seconds…",
+        hashtags: "#lovestory #couplegoals #romanticvibes",
+        song: "Heeriye - Arijit Singh"
+      },
+      sad: {
+        caption: "That one memory you can’t forget…",
+        hashtags: "#sadreel #emotionalvibes #hearttouching",
+        song: "Let Me Down Slowly - Alec Benjamin"
+      },
+      motivational: {
+        caption: "Your only limit is you. Keep pushing!",
+        hashtags: "#motivationdaily #nevergiveup #grindmode",
+        song: "Hall of Fame - The Script"
+      },
+      dance: {
+        caption: "Drop the beat and move your feet!",
+        hashtags: "#dancevibes #reeldance #grooveon",
+        song: "Kala Chashma Remix"
+      },
+      emotional: {
+        caption: "Some feelings can’t be explained in words…",
+        hashtags: "#emotionallife #tearsoflove #reelvibes",
+        song: "Tera Yaar Hoon Main - Lo-Fi Mix"
+      },
+      travel: {
+        caption: "Wander where the WiFi is weak and soul is strong.",
+        hashtags: "#travelgram #reeltravel #scenicviews",
+        song: "Ilahi - Yeh Jawaani Hai Deewani"
+      },
+      food: {
+        caption: "Warning: Watch only if you're not hungry!",
+        hashtags: "#foodiegram #reelfood #cravingsactivated",
+        song: "Yummy - Justin Bieber"
+      }
+    };
+
+    function generateContent() {
+      const type = document.getElementById('videoType').value;
+      const input = document.getElementById('videoInput').value.trim();
+      const result = data[type];
+
+      document.getElementById('generatedResult').innerHTML = `
+        <div class="card">
+          <strong>Caption:</strong> ${result.caption} <button class="copy">Copy</button>
+        </div>
+        <div class="card">
+          <strong>Hashtags:</strong> ${result.hashtags} <button class="copy">Copy</button>
+        </div>
+        <div class="card">
+          <strong>Song Suggestion:</strong> ${result.song} <button class="copy">Copy</button>
+        </div>
+      `;
+
+      document.querySelectorAll('.copy').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const text = btn.parentElement.textContent.replace('Copy', '').trim();
+          navigator.clipboard.writeText(text);
+          btn.innerText = 'Copied!';
+          setTimeout(() => btn.innerText = 'Copy', 1000);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
